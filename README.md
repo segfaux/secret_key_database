@@ -40,10 +40,13 @@ skd.user.add_key_to_database(
 )
 
 # Get a key
-key = skd.user.get_key_from_database(
+row = skd.user.get_key_from_database(
     path_db=path_db,
     name='key_name',
 )
+
+if row:
+    row.get("secret_key", str())
 
 # Check out available keys by name
 print(skd.database.get_names_from_database(path_db=path_db))
