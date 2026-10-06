@@ -33,7 +33,7 @@ def create_database(path_db: str):
     # Create the database schema
     with sqlite3.connect(path_db) as conn:
         conn.execute(
-            f"""CREATE TABLE encrypted_keys (
+            f"""CREATE TABLE IF NOT EXISTS encrypted_keys (
                 {', '.join([f'{key} {value}' for key, value in KEYS_DATABASE.items()])}
             )"""
         )
@@ -105,7 +105,7 @@ def append_encrypted_key_to_database(
         "version": version,
         "metadata": metadata,
     }
-    command = f"INSERT INTO encrypted_keys ({', '.join(KEYS_DATABASE.keys())}) VALUES ({', '.join(['?']*len(KEYS_DATABASE.keys()))})"
+    command = f"INSERT OR REPLACE INTO encrypted_keys ({', '.join(KEYS_DATABASE.keys())}) VALUES ({', '.join(['?']*len(KEYS_DATABASE.keys()))})"
 
     # Insert the encrypted key into the database
     with sqlite3.connect(path_db) as conn:
