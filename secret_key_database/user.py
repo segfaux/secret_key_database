@@ -51,7 +51,7 @@ def get_key_from_database(
         **dict_encrypted_key,
     )
 
-    return secret_key
+    return {**dict_encrypted_key, "secret_key": secret_key}
 
 def add_key_to_database(
     path_db: str,
