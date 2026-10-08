@@ -48,6 +48,12 @@ row = skd.user.get_key_from_database(
 if row:
     row.get("secret_key", str())
 
-# Check out available keys by name
+# Delete a key
+skd.user.remove_key_from_database(
+        path_db=path_db,
+        name='key_name',
+)
+
+# Check out available keys by name, due to the remove call above this should be empty
 print(skd.database.get_names_from_database(path_db=path_db))
 ```
