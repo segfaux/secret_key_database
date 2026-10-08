@@ -116,3 +116,30 @@ def add_key_to_database(
         name=name, 
         **dict_encrypted_key,
     )
+
+def remove_key_from_database(
+    path_db: str,
+    name: str
+):
+    """
+    Removes a secret key from the database. \n
+    segfaux 2026
+
+    Args:
+        path_db (str): 
+            The path to the database file.
+        name (str): 
+            The name of the secret key.
+    """
+    ## Check types: str
+    database._assert_type(path_db, str)
+    database._assert_type(name, str)
+
+    ## Check if the database exists
+    if not Path(path_db).is_file():
+        raise FileNotFoundError(f"Database file not found: {path_db}")
+
+    database.delete_encrypted_key_from_database(
+        path_db=path_db, 
+        name=name,
+    )
